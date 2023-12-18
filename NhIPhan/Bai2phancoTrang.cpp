@@ -141,22 +141,33 @@ int HeightTree(node *T) {
 //	}
 //	return t;
 //}
-
-void duyetdep(node *t){
-	if(t==NULL){
-		printf("Cay trong");
-	}else{
-		printf("%d ",t->data);
-		if(t->R!=NULL){
-			printf("\\n%d",t->R->data);
-		}
-		if(t->L!=NULL){
-			printf("/\n%d",t->L->data);
-		}
-		duyetdep(t->R);
-		duyetdep(t->L);
-	}
+// chen node 
+node *chenNode(node*t, int data){
+	t = addNode(t,data);
+	return t;
 }
+// so nut la cua cay 
+void demNodeLa(node* t,int &count)
+{
+   if(t!=NULL)
+   {
+      if(t->L==NULL && t->R==NULL)  
+         count++;
+      demNodeLa(t->L,count);
+      demNodeLa(t->R,count);  
+   }
+}
+
+int findMaxDepth(struct node* root) {
+    if (root == NULL) {
+        return 0;
+    } else {
+        int leftDepth = findMaxDepth(root->L);
+        int rightDepth = findMaxDepth(root->R);
+        return (leftDepth > rightDepth ? leftDepth : rightDepth) + 1;
+    }
+}
+
 
 main(){
 	node * t= NULL;
@@ -188,6 +199,14 @@ main(){
 	printf("\nGia tri lon nhat tim thay trong cay la : %d",timMax(t));
 	printf("\nChieu cao cua cay la: %d",HeightTree(t));
 	printf("\n");
-	printf("duyet dep");
-	duyetdep(t);
+	printf("Ban muon chen gia tri bao nhieu");
+	int d ;
+	scanf("%d",&d);
+	t=chenNode(t,d);
+	printf("Danh sách sau khi chen mot node :"); 
+	duyetNLR(t);
+	int dem=0;
+	demNodeLa(t,dem);
+	printf("\nTrong cay co %d node la:",dem);
+	printf("\nBac cua cay nhi phan la: %d",findMaxDepth(t));
 }
