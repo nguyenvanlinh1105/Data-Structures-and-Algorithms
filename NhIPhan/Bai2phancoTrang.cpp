@@ -167,7 +167,13 @@ int findMaxDepth(struct node* root) {
         return (leftDepth > rightDepth ? leftDepth : rightDepth) + 1;
     }
 }
-
+// dem node
+int CountNode(Tree T) {
+   if( T == NULL)
+      return 0;
+   else
+      return 1 + CountNode(T->Left) + CountNode(T->Right);
+}
 
 main(){
 	node * t= NULL;
