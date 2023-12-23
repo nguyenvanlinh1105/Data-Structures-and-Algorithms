@@ -4,7 +4,7 @@
 // Hàm in day so 
 void hienThi(int arr[], int n) {
     printf("Danh sach sau khi sap xep: ");
-    for (int i = 0; i < n; i++) {
+    for (int i = 1; i <= n; i++) {
         printf("%d ", arr[i]);
     }
     printf("\n");
@@ -40,26 +40,29 @@ void quickSort(int arr[], int low, int high) {
 
 // Hàm sap xep ShellSort voi buoc nhay nhap vao ban phim. 
 void shellSort(int arr[], int n, int buocNhay) {
-    for (int i = buocNhay; i < n; i++) {
-        int temp = arr[i];
-        int j;
-        for (j = i; j >= buocNhay && arr[j - buocNhay] > temp; j -= buocNhay) {
-            arr[j] = arr[j - buocNhay];
+    for (int gap = buocNhay; gap > 0; gap /= 2) {
+        for (int i = gap; i <= n; i++) {
+            int temp = arr[i];
+            int j;
+            for (j = i; j >= gap && arr[j - gap] > temp; j -= gap) {
+                arr[j] = arr[j - gap];
+            }
+            arr[j] = temp;
         }
-        arr[j] = temp;
     }
 }
+
 // hàm sx ho tro cho ham heapsort 
 void hamSXheapsortGiam(int arr[], int n, int i) {
   int viTriNhoNhat = i;
-  int trai = 2 * i + 1;
-  int phai = 2 * i + 2;
+  int trai = 2 * i;
+  int phai = 2 * i + 1;
 
-  if (trai < n && arr[trai] < arr[viTriNhoNhat]) {
+  if (trai <= n && arr[trai] < arr[viTriNhoNhat]) {
     viTriNhoNhat = trai;
   }
 
-  if (phai < n && arr[phai] < arr[viTriNhoNhat]) {
+  if (phai <= n && arr[phai] < arr[viTriNhoNhat]) {
     viTriNhoNhat = phai;
   }
 
@@ -70,13 +73,13 @@ void hamSXheapsortGiam(int arr[], int n, int i) {
 }
 
 void heapSortGiam(int arr[], int n) {
-  for (int i = n / 2 - 1; i >= 0; i--) {
+  for (int i = n / 2; i >= 1; i--) {
     hamSXheapsortGiam(arr, n, i);
   }
 
-  for (int i = n - 1; i > 0; i--) {
-    HoanVi(&arr[0], &arr[i]);
-    hamSXheapsortGiam(arr, i, 0);
+  for (int i = n; i >= 1; i--) {
+    HoanVi(&arr[1], &arr[i]);
+    hamSXheapsortGiam(arr, i - 1, 1);
   }
 }
 
@@ -96,17 +99,17 @@ int main() {
         printf("Nhap so phan tu cua mang: ");
         scanf("%d", &soPhanTu);
 
-        int mang[soPhanTu];
+        int mang[soPhanTu + 1]; // M?ng b?t d?u t? index 1
 
         printf("Nhap cac phan tu cua mang:\n");
-        for (int i = 0; i < soPhanTu; i++) {
+        for (int i = 1; i <= soPhanTu; i++) {
             printf("mang[%d] = ", i);
             scanf("%d", &mang[i]);
         }
 
         switch (luaChon) {
             case 1:
-                quickSort(mang, 0, soPhanTu - 1);
+                quickSort(mang, 1, soPhanTu);
                 hienThi(mang, soPhanTu);
                 break;
             case 2:
