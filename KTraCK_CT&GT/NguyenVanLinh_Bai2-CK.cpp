@@ -131,6 +131,5 @@ int main() {
         }
     } while (luaChon != 4);
 
-    return 0;
 }
 
