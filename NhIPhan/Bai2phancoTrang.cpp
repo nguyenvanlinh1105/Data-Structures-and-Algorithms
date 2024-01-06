@@ -158,15 +158,6 @@ void demNodeLa(node* t,int &count)
    }
 }
 
-int findMaxDepth(struct node* root) {
-    if (root == NULL) {
-        return 0;
-    } else {
-        int leftDepth = findMaxDepth(root->L);
-        int rightDepth = findMaxDepth(root->R);
-        return (leftDepth > rightDepth ? leftDepth : rightDepth) + 1;
-    }
-}
 // dem node
 int CountNode(Tree T) {
    if( T == NULL)
@@ -174,6 +165,31 @@ int CountNode(Tree T) {
    else
       return 1 + CountNode(T->Left) + CountNode(T->Right);
 }
+
+// Ham dem node 1 con
+void demNodeMotCon(node* t, int &count)
+{
+    if (t != NULL)
+    {
+        if ((t->L != NULL && t->R == NULL) || (t->L == NULL && t->R != NULL))
+            count++;
+        demNodeMotCon(t->L, count);
+        demNodeMotCon(t->R, count);
+    }
+}
+
+// ham dem node 2 con
+void demNodeHaiCon(node* t, int &count)
+{
+    if (t != NULL)
+    {
+        if (t->L != NULL && t->R != NULL)
+            count++;
+        demNodeHaiCon(t->L, count);
+        demNodeHaiCon(t->R, count);
+    }
+}
+
 
 main(){
 	node * t= NULL;
